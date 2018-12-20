@@ -19,6 +19,8 @@ def cineprint(txt):
     for i in range(0,len(txt)-1): # 01 23 45 67 89
         temp.append(str(txt[i]) + " ----" + str(txt[i+1])+"\n")
         i+=1
+    print("여기부터")
+    print(temp)
     return temp
 
 

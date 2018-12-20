@@ -15,11 +15,7 @@ from Switch import *
 
 app = Flask(__name__)
 
-slack_token = 'xoxb-502761537154-507692270245-FmmUMQ16hzLId8WWxCoHojNS'
-slack_client_id = '502761537154.508542038855'
-slack_client_secret = 'f726fa59edb0c18b46584693ccc5c7ae'
-slack_verification = 'RQtTgo0LYVww9gcxbpy6Eexj'
-sc = SlackClient(slack_token)
+
 
 title_list = []  # 영화제목 리스트
 title_url_list = []  # 영화 제목 주소 리스트
