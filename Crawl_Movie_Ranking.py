@@ -23,6 +23,10 @@ def crawl_movie_rank():
     title_list = title_list[0:10]
     title_url_list = title_url_list[0:10]
 
+    # for i range(0,10)
+    #     title_list
+
+
     # print(title_list)
     # print(title_url_list)
 

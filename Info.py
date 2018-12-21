@@ -16,12 +16,15 @@ def listToStringWithoutBrackets(list1):  ##### 리스트의 대괄호 제거 함
 def cineprint(txt):
     temp = []
     # print("요기 : "+txt)
-    for i in range(0,len(txt)-1): # 01 23 45 67 89
-        temp.append(str(txt[i]) + " ----" + str(txt[i+1])+"\n")
-        i+=1
-    print("여기부터")
-    print(temp)
-    return temp
+    for i in txt: # 01 23 45 67 89
+        temp.append(str(i[0]) +" "+ str(i[1]))
+    # print("여기부터")
+    # print(temp)
+    return '\n'.join(temp)
+
+def replyprint(txt):
+
+    return '\n'.join(txt)
 
 
 def info(url):
@@ -53,17 +56,17 @@ def info(url):
     text_reply = []
     text_star = []
 
-    answer_cine = []
-    answer_story = []
-    answer_reply = []
-    answer_star = []
+    answer_cine = ["-------------"]
+    answer_story = ["-------------"]
+    answer_reply = ["-------------"]
+    answer_star = ["-------------"]
 
     ##### 질문이 상영관(cine)일경우
     # if answer == "cine":
     cine_titles = soup_cine.find_all("p", class_="cine_title")
     for cine in cine_titles:
         text_cine.append(cine.get_text().split()[:2])
-    answer_cine.append("주변 상영관은 " + str(listToStringWithoutBrackets(cineprint(text_cine))) + "입니다.\n")
+    answer_cine.append("\n주변 상영관 \n"+ listToStringWithoutBrackets(cineprint(text_cine)))
     # print(answer_cine)
     # return print("주변 상영관은 " + str(listToStringWithoutBrackets(text_cine)) + "입니다.")
 
@@ -73,6 +76,7 @@ def info(url):
     story_titles = soup_story.find_all("p", class_="con_tx")
     for story in story_titles:
         text_story.append(story.get_text().replace("\r\xa0", ""))  ##### \r\xa0--> 네이버에서 줄바꿀때 생김
+        text_story = [w.replace('\xa0', ' ') for w in text_story]# 가져온 소스
         text_story = text_story[:1]  #### 1번-> 줄거리 // 2번 제작노트
     answer_story.append(listToStringWithoutBrackets(text_story).replace("'", "")+"\n")
     # return print(listToStringWithoutBrackets(text_story).replace("'", ""))
@@ -81,9 +85,9 @@ def info(url):
 # elif answer == "reply":
     for reply in soup_reply.find_all("ul", class_="rvw_list_area"):
         for reply2 in reply.find_all("li"):
-            for reply3 in reply2.find_all("strong"):
+            for reply3 in reply2.find_all("strong"):#replyprint(txt)
                 text_reply.append(reply3.get_text())
-    answer_reply.append("최신 댓글 입니다. \n" + listToStringWithoutBrackets(str(text_reply[:1])))
+    answer_reply.append("관람객 후기\n" + listToStringWithoutBrackets(replyprint(text_reply[:5])))
     # return print("최신 댓글 입니다. \n" + listToStringWithoutBrackets(str(text_reply[:1])))
 
 ##### 질문이 별점(star)일경우
@@ -95,7 +99,12 @@ def info(url):
     answer_star.append(listToStringWithoutBrackets(text_star).replace("'", "") + "입니다.")
     # return print(listToStringWithoutBrackets(text_star).replace("'", "") + "입니다.")
 
-    return answer_cine + answer_story + answer_reply + answer_star
+    # url.append("\n")
+    # url = str(url)
+    final_result = ["\n<"+ str(url)+"|상세정보보기 클릭!>\n"]  #<http://bar.com|bar>
+    # print(type(final_result))
+    # print(type(url))
+    return answer_star + answer_story + answer_reply + answer_cine + final_result
 
     ##### 그밖의 경우
     # else:
