@@ -1,6 +1,6 @@
 
 # **ChatFlix**
-### 파이썬과 Beautiful Soup을 이용한 크롤링으로 Salck 챗봇 구현
+ 파이썬과 Beautiful Soup을 이용한 크롤링으로 Salck 챗봇 구현
 
 ## 스펙(Specification)
 1. 영화 순위  검색
